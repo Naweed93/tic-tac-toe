@@ -1,6 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&display=swap');
 * {
     border: none;
     margin: 0;
     padding: 0;
     text-decoration: none;
+    font-family: 'Raleway', sans-serif;
+}
+.container{
+    background-color: #fff0f3;
+    border: 2px solid #800f2f;
+    border-radius: 10px;
+    padding: 20px 20px 80px 20px;
+    width: min(80vw,1000px);
+    margin: 50px auto;
+    box-shadow: 0 0 20px 5px #ddd;
+}
+h1{
+    text-align: center;
+    font-size: 50px;
+    font-weight: 400;
+    margin-bottom: 80px;
+}
+.player-selection{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    font-size: 25px;
+}
+.players{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.players select{
+    padding: 10px;
+    width: 190px;
+    text-align: center;
+    background-color: #800f2f;
+    color: #FFF;
+    font-size: 25px;
+}
+.board{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: min(25vw,250px);
+    height: min(25vw,250px);
+    margin: auto;
+    border: 1px solid #800f2f;
+}
+.board>div{
+    border: 1px solid #800f2f;
+    cursor: pointer;
+}
+.restart, .start{
+    padding: 10px;
+    width: 190px;
+    text-align: center;
+    background-color: #800f2f;
+    color: #FFF;
+    font-size: 25px;
+    margin: 40px auto 0;
+    display: block;
+    cursor: pointer;
+}
+.play p{
+    text-align: center;
+    padding: 0 0 20px 0;
+    font-size: 25px;
+}
+.play span{
+    line-height: min(80px,8vw);
+    font-size: min(80px,8vw);
+    display: block;
+    text-align: center;
+    color: #606060;
 }
