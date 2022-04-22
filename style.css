@@ -86,4 +86,8 @@ h1{
         width: min(60vw,250px);
         height: min(60vw,250px);
     }
+    .play span{
+        line-height: min(60px,8vw);
+        font-size: min(60px,8vw);
+    }
   }
