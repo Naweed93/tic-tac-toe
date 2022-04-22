@@ -8,97 +8,122 @@ const player = (user, letter) => {
 };
 
 const gameBoard = ( () =>{
-    let fields = document.querySelectorAll(".board>div");
+    let _fields = document.querySelectorAll(".board>div");
     let _curTurn = 0;
     let _isBotPlayer = [];
     let _playedHands = 0;
-    currentResult = [];
     const gameInit = () => {
         players[0].user = document.querySelector('.player1').value;
         (players[0].user == 'bot') ? _isBotPlayer[0]=true : _isBotPlayer[0]=false;
         players[1].user = document.querySelector('.player2').value;
         (players[1].user == 'bot') ? _isBotPlayer[1]=true : _isBotPlayer[1]=false;
         if(_isBotPlayer[0]){
-            setTimeout(botPlay,1000);
+            setTimeout(_botPlay,1000);
         }
+        else{
+            _addPlayerListener();
+        }
+        
+    };
+    const gameRestart = () => {
+        for(let i =0;i<_fields.length;i++){
+            _fields[i].innerHTML = "";
+        }
+        _removePlayerListener();
         _playedHands = 0;
         _curTurn = 0;
-        for(let i =0;i<fields.length;i++){
-            fields[i].addEventListener("click",playerClick);
-        }
+        const highestTimeoutId = setTimeout(() =>{
+            for(let i = highestTimeoutId; i>=0 ; i--){
+                window.clearTimeout(i);
+            }
+        }, 0);
     };
-    const botPlay = () => {
+    const _botPlay = () => {
         while (_playedHands < 9){
             let i = Math.floor(Math.random()*9);
-            if (!fields[i].innerHTML){
-                fields[i].innerHTML = '<span>' + players[_curTurn].letter + '</span>';
+            if (!_fields[i].innerHTML){
+                _fields[i].innerHTML = '<span>' + players[_curTurn].letter + '</span>';
                 break;
             }
         }
         _changeTurn();
+    };
+    const _addPlayerListener = () => {
+        for(let i =0;i<_fields.length;i++){
+            _fields[i].addEventListener("click",_playerClick);
+        }
+    };
+    const _removePlayerListener = () => {
+        for(let i =0;i<_fields.length;i++){
+            _fields[i].removeEventListener("click",_playerClick);
+        }
     };
     const _changeTurn = () =>{
         _playedHands += 1;
         playTexts[_curTurn].style.display = "none";
         _curTurn == 0 ? _curTurn = 1 : _curTurn = 0;
         playTexts[_curTurn].style.display = "";
+        _removePlayerListener();
         _gameStat();
     };
     const _checkWin = () => {
-        if (fields[1].innerText && (fields[1].innerText == fields[0].innerText && fields[1].innerText== fields[2].innerText)){
+        if (_fields[1].innerText && (_fields[1].innerText == _fields[0].innerText && _fields[1].innerText== _fields[2].innerText)){
             return true;
         }
-        if (fields[1].innerText && (fields[1].innerText == fields[4].innerText && fields[1].innerText== fields[7].innerText)){
+        if (_fields[1].innerText && (_fields[1].innerText == _fields[4].innerText && _fields[1].innerText== _fields[7].innerText)){
             return true;
         }
-        if (fields[3].innerText && (fields[3].innerText == fields[0].innerText && fields[3].innerText== fields[6].innerText)){
+        if (_fields[3].innerText && (_fields[3].innerText == _fields[0].innerText && _fields[3].innerText== _fields[6].innerText)){
             return true;
         }
-        if (fields[3].innerText && (fields[3].innerText == fields[4].innerText && fields[3].innerText== fields[5].innerText)){
+        if (_fields[3].innerText && (_fields[3].innerText == _fields[4].innerText && _fields[3].innerText== _fields[5].innerText)){
             return true;
         }
-        if (fields[5].innerText && (fields[5].innerText == fields[2].innerText && fields[5].innerText== fields[8].innerText)){
+        if (_fields[5].innerText && (_fields[5].innerText == _fields[2].innerText && _fields[5].innerText== _fields[8].innerText)){
             return true;
         }
-        if (fields[7].innerText && (fields[7].innerText == fields[6].innerText && fields[7].innerText== fields[8].innerText)){
+        if (_fields[7].innerText && (_fields[7].innerText == _fields[6].innerText && _fields[7].innerText== _fields[8].innerText)){
             return true;
         }
-        if (fields[4].innerText && (fields[4].innerText == fields[0].innerText && fields[4].innerText== fields[8].innerText)){
+        if (_fields[4].innerText && (_fields[4].innerText == _fields[0].innerText && _fields[4].innerText== _fields[8].innerText)){
             return true;
         }
-        if (fields[4].innerText && (fields[4].innerText == fields[2].innerText && fields[4].innerText== fields[6].innerText)){
+        if (_fields[4].innerText && (_fields[4].innerText == _fields[2].innerText && _fields[4].innerText== _fields[6].innerText)){
             return true;
         }
         return false;
     };
-    const playerClick = (e)=>{
+    const _playerClick = (e)=>{
         if(!e.srcElement.innerHTML){
                 e.srcElement.innerHTML = '<span>' + players[_curTurn].letter + '</span>';
                 _changeTurn();
         }
     };
     const _gameStat = () => {
-        if(_playedHands == 9){
+        
+        if(_checkWin()){
+            _isBotPlayer[0] = false;
+            _isBotPlayer[1] = false;
+            _removePlayerListener();
+            playTexts[_curTurn].style.display = "none";
+            playTexts[_curTurn+2].style.display = "";
+            return 0;
+        }
+        else if(_playedHands == 9){
             _isBotPlayer[0] = false;
             _isBotPlayer[1] = false;
             playTexts[_curTurn].style.display = "none";
             playTexts[4].style.display="";
-        }
-        if(_checkWin()){
-            console.log("win");
-            _isBotPlayer[0] = false;
-            _isBotPlayer[1] = false;
-            for(let i =0;i<fields.length;i++){
-                fields[i].removeEventListener("click",playerClick);
-            }
-            playTexts[_curTurn].style.display = "none";
-            playTexts[_curTurn+2].style.display = "";
+            return 0;
         }
         if (_isBotPlayer[_curTurn]){
-            setTimeout(botPlay,1000);
+            setTimeout(_botPlay,1000);
+        }
+        else{
+            _addPlayerListener();
         }
     }
-    return { currentResult,fields,playerClick, botPlay, gameInit};
+    return { gameInit, gameRestart};
 })();
 
 
@@ -111,9 +136,7 @@ function start(){
 function restart(){
     document.querySelector('.player-selection').style.display = "";
     document.querySelector('.play').style.display = "none";
-    for(let i =0;i<gameBoard.fields.length;i++){
-        gameBoard.fields[i].innerHTML = "";
-    }
+    gameBoard.gameRestart();
     for(let i =0;i<playTexts.length;i++){
         playTexts[i].style.display = "none";
     }
