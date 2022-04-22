@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
 </head>
 <body>
     <div class="container">
         <h1>Tic Tac Toe!</h1>
-        <div style=""class="player-selection">
+        <div class="player-selection">
             <p>choose the players:</p>
             <div class="players">
                 <select class="player1" name="player1">
@@ -26,21 +26,22 @@
             </div>
             <button class="start">Start</button>
         </div>
-        <div class="play" style="display:none">
+        <div class="play" style="display: none">
             <p class="player1-turn">It's player 1's turn.</p>
             <p class="player2-turn" style="display: none;">It's player 2's turn.</p>
-            <p class="player1-victory" style="display: none;">Player 1 won the game!</p>
-            <p class="player2-victory" style="display: none;">Player 2 won the game!</p>
+            <p class="player1-victory" style="display: none;">Player 2 won the game!</p>
+            <p class="player2-victory" style="display: none;">Player 1 won the game!</p>
+            <p class="tie" style="display: none;">Tie!</p>
             <div class="board">
-                <div class="item1"><span>O</span></div>
-                <div class="item2"></div>
-                <div class="item3"></div>
-                <div class="item4"></div>
-                <div class="item5"></div>
-                <div class="item6"></div>
-                <div class="item7"></div>
-                <div class="item8"></div>
-                <div class="item9"></div>
+                <div id="0"></div>
+                <div id="1"></div>
+                <div id="2"></div>
+                <div id="3"></div>
+                <div id="4"></div>
+                <div id="5"></div>
+                <div id="6"></div>
+                <div id="7"></div>
+                <div id="8"></div>
             </div>
             <button class="restart">Restart</button>
         </div>
