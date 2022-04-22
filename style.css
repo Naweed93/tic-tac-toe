@@ -83,11 +83,11 @@ h1{
       flex-direction: column;
     }
     .board{
-        width: min(60vw,250px);
-        height: min(60vw,250px);
+        width: min(59vw,250px);
+        height: min(59vw,250px);
     }
     .play span{
-        line-height: min(60px,8vw);
-        font-size: min(60px,8vw);
+        line-height: min(80px,19vw);
+        font-size: min(80px,19vw);
     }
   }
